@@ -3,8 +3,12 @@ mod line;
 mod polygon;
 
 use framebuffer::Framebuffer;
-use polygon::draw_polygon;
+use polygon::{
+    draw_polygon,
+    fill_polygon,
+};
 use raylib::prelude::*;
+
 
 fn main() {
 
@@ -25,6 +29,14 @@ fn main() {
         (205, 410),
         (193, 383),
     ];
+
+    fill_polygon(
+        &mut fb,
+        &polygon1,
+        Color::YELLOW,
+    );
+
+    fb.set_current_color(Color::WHITE);
 
     draw_polygon(
         &mut fb,
