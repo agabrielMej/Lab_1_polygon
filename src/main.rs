@@ -3,7 +3,10 @@ mod line;
 mod polygon;
 
 use framebuffer::Framebuffer;
-use polygon::draw_polygon_with_hole;
+use polygon::{
+    draw_filled_polygon,
+    draw_polygon_with_hole,
+};
 
 use raylib::prelude::*;
 
@@ -11,6 +14,54 @@ fn main() {
 
     let mut fb = Framebuffer::new(800, 600);
 
+    // Polígono 1 (Amarillo)
+    let polygon1 = vec![
+        (165, 380),
+        (185, 360),
+        (180, 330),
+        (207, 345),
+        (233, 330),
+        (230, 360),
+        (250, 380),
+        (220, 385),
+        (205, 410),
+        (193, 383),
+    ];
+
+    draw_filled_polygon(
+        &mut fb,
+        &polygon1,
+        Color::YELLOW,
+    );
+
+    // Polígono 2 (Azul)
+    let polygon2 = vec![
+        (321,335),
+        (288,286),
+        (339,251),
+        (374,302),
+    ];
+
+    draw_filled_polygon(
+        &mut fb,
+        &polygon2,
+        Color::BLUE,
+    );
+
+    // Polígono 3 (Rojo)
+    let polygon3 = vec![
+        (377,249),
+        (411,197),
+        (436,249),
+    ];
+
+    draw_filled_polygon(
+        &mut fb,
+        &polygon3,
+        Color::RED,
+    );
+
+    // Polígono 4 (Verde)
     let polygon4 = vec![
         (413,177),
         (448,159),
@@ -32,6 +83,7 @@ fn main() {
         (466,180),
     ];
 
+    // Agujero (Polígono 5)
     let polygon5 = vec![
         (682,175),
         (708,120),
@@ -48,5 +100,5 @@ fn main() {
 
     fb.export("out.bmp");
 
-    println!("Imagen creada correctamente.");
+    println!("Laboratorio terminado.");
 }
