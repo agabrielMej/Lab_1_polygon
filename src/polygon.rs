@@ -1,3 +1,5 @@
+use raylib::prelude::Color;
+
 use crate::framebuffer::Framebuffer;
 use crate::line::draw_line;
 
@@ -10,11 +12,8 @@ pub fn draw_polygon(
     }
 
     for i in 0..vertices.len() {
-
         let (x0, y0) = vertices[i];
-
-        let (x1, y1) =
-            vertices[(i + 1) % vertices.len()];
+        let (x1, y1) = vertices[(i + 1) % vertices.len()];
 
         draw_line(fb, x0, y0, x1, y1);
     }
@@ -23,9 +22,8 @@ pub fn draw_polygon(
 pub fn fill_polygon(
     fb: &mut Framebuffer,
     vertices: &[(i32, i32)],
-    color: raylib::prelude::Color,
+    color: Color,
 ) {
-
     let min_y = vertices.iter().map(|v| v.1).min().unwrap();
     let max_y = vertices.iter().map(|v| v.1).max().unwrap();
 
@@ -41,9 +39,8 @@ pub fn fill_polygon(
             if (y1 <= y && y2 > y) ||
                (y2 <= y && y1 > y)
             {
-                let x = x1
-                    + ((y - y1) * (x2 - x1))
-                        / (y2 - y1);
+                let x =
+                    x1 + ((y - y1) * (x2 - x1)) / (y2 - y1);
 
                 intersections.push(x);
             }
@@ -55,14 +52,30 @@ pub fn fill_polygon(
 
         while i + 1 < intersections.len() {
 
-            let start = intersections[i];
-            let end = intersections[i + 1];
-
-            for x in start..=end {
+            for x in intersections[i]..=intersections[i + 1] {
                 fb.point_color(x, y, color);
             }
 
             i += 2;
         }
     }
+}
+
+pub fn draw_filled_polygon(
+    fb: &mut Framebuffer,
+    vertices: &[(i32, i32)],
+    fill_color: Color,
+) {
+    fill_polygon(
+        fb,
+        vertices,
+        fill_color,
+    );
+
+    fb.set_current_color(Color::WHITE);
+
+    draw_polygon(
+        fb,
+        vertices,
+    );
 }
