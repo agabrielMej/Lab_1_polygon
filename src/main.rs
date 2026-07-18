@@ -11,17 +11,16 @@ fn main() {
 
     let mut fb = Framebuffer::new(800, 600);
 
-    let polygon2 = vec![
-        (321, 335),
-        (288, 286),
-        (339, 251),
-        (374, 302),
+    let polygon3 = vec![
+        (377, 249),
+        (411, 197),
+        (436, 249),
     ];
 
     draw_filled_polygon(
         &mut fb,
-        &polygon2,
-        Color::BLUE,
+        &polygon3,
+        Color::RED,
     );
 
     fb.export("out.bmp");
