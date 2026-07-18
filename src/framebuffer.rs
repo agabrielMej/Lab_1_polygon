@@ -6,6 +6,7 @@ pub struct Framebuffer {
 }
 
 impl Framebuffer {
+
     pub fn new(width: i32, height: i32) -> Self {
         Self {
             image: Image::gen_image_color(width, height, Color::BLACK),
@@ -17,10 +18,22 @@ impl Framebuffer {
         self.current_color = color;
     }
 
+    // Dibuja un píxel usando el color actual
     pub fn point(&mut self, x: i32, y: i32) {
         self.image.draw_pixel(x, y, self.current_color);
     }
 
+    // Dibuja un píxel con un color específico
+    pub fn point_color(
+        &mut self,
+        x: i32,
+        y: i32,
+        color: Color,
+    ) {
+        self.image.draw_pixel(x, y, color);
+    }
+
+    // Exporta la imagen a un archivo BMP
     pub fn export(&self, filename: &str) {
         self.image.export_image(filename);
     }
