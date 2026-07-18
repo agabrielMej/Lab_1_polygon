@@ -1,0 +1,1 @@
+C:\Users\agabr\Dev\Lab_1_polygon\target\debug\Lab_1_polygon.exe: C:\Users\agabr\Dev\Lab_1_polygon\src\framebuffer.rs C:\Users\agabr\Dev\Lab_1_polygon\src\line.rs C:\Users\agabr\Dev\Lab_1_polygon\src\main.rs
