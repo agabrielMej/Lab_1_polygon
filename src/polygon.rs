@@ -39,8 +39,7 @@ pub fn fill_polygon(
             if (y1 <= y && y2 > y) ||
                (y2 <= y && y1 > y)
             {
-                let x =
-                    x1 + ((y - y1) * (x2 - x1)) / (y2 - y1);
+                let x = x1 + ((y - y1) * (x2 - x1)) / (y2 - y1);
 
                 intersections.push(x);
             }
@@ -77,5 +76,39 @@ pub fn draw_filled_polygon(
     draw_polygon(
         fb,
         vertices,
+    );
+}
+
+pub fn draw_polygon_with_hole(
+    fb: &mut Framebuffer,
+    outer: &[(i32, i32)],
+    hole: &[(i32, i32)],
+    fill_color: Color,
+) {
+    // Rellenar el polígono exterior
+    fill_polygon(
+        fb,
+        outer,
+        fill_color,
+    );
+
+    // "Borrar" el agujero pintándolo del color del fondo
+    fill_polygon(
+        fb,
+        hole,
+        Color::BLACK,
+    );
+
+    // Dibujar los bordes
+    fb.set_current_color(Color::WHITE);
+
+    draw_polygon(
+        fb,
+        outer,
+    );
+
+    draw_polygon(
+        fb,
+        hole,
     );
 }
